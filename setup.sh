@@ -1,14 +1,3 @@
-kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
-kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
-kubectl delete -f srcs/nginx/nginx.yaml
-kubectl delete -f srcs/mysql/mysql.yaml
-kubectl delete -f srcs/wordpress/wordpress.yaml
-kubectl delete -f srcs/phpmyadmin/phpmyadmin.yaml
-kubectl delete -f srcs/ftps/ftps.yaml
-kubectl delete -f srcs/grafana/grafana.yaml
-kubectl delete -f srcs/influxdb/influxdb.yaml
-kubectl delete -f srcs/telegraf/telegraf.yaml
-
 # Delete previous cluster
 minikube delete
 
@@ -34,8 +23,8 @@ CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].addre
 # Change IP to match your machine (normally it is 172.17.0.3)
 sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/metallb/metallb.yaml
 sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/nginx/nginx.conf
-sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/wordpress/entry.sh
-sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/ftps/start.sh
+sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/wordpress/create.sh
+sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/ftps/vsftpd.conf
 sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/telegraf/telegraf.conf
 
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
@@ -50,6 +39,7 @@ build_apply ()
     docker build -t services/$1 srcs/$1
     sleep 1
     kubectl apply -f srcs/$1/$1.yaml
+    sleep 1
 }
 
 services="nginx mysql wordpress phpmyadmin ftps influxdb telegraf grafana"

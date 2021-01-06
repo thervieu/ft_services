@@ -11,7 +11,6 @@ RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.0-static_linu
 
 RUN apk add libc6-compat
 
-
 COPY /telegraf.conf /etc/telegraf/telegraf.conf
 
 COPY /telegraf.conf /telegraf/telegraf.conf

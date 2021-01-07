@@ -1,9 +1,6 @@
 # Delete previous cluster
 minikube delete
 
-# Allow docker to run (password on VM is "user42")
-sudo usermod -aG docker $(whoami)
-
 # Start the cluster
 minikube start --vm-driver=docker
 

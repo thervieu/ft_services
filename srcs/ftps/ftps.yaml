@@ -13,15 +13,9 @@ spec:
   - port: 20
     targetPort: 20
     name: ftps-data
-  - port: 21020
-    targetPort: 21020
-    name: ftps-p20
   - port: 21021
     targetPort: 21021
     name: ftps-p21
-  - port: 21022
-    targetPort: 21022
-    name: ftps-p22
   selector:
     app: ftps
 ---
@@ -51,10 +45,6 @@ spec:
           name: ftps
         - containerPort: 20
           name: ftps-data
-        - containerPort: 21020
-          name: ftps-p20
         - containerPort: 21021
           name: ftps-p21
-        - containerPort: 21022
-          name: ftps-p22
 

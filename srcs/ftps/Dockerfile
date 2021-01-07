@@ -11,6 +11,6 @@ COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY start.sh /tmp/
 RUN chmod 777 /tmp/start.sh
 
-EXPOSE 20 21 21020 21021 21022
+EXPOSE 20 21 21021
 
 ENTRYPOINT ["/tmp/start.sh"]

@@ -3,7 +3,7 @@ mkdir -p wordpress;
 cd wordpress;
 
 if ! $(wp core is-installed); then
-    wp core download;
+    wp core download --version=latest;
 
     while true; do
        if wp config create --dbname=wordpress --dbuser=admin --dbpass=admin --dbhost=mysql; then

@@ -4,15 +4,8 @@ minikube delete
 # Start the cluster
 minikube start --vm-driver=docker
 
-if [[ $? == 0 ]]
-then
-    eval $($sudo minikube docker-env)
-    printf "Minikube started\n"
-else
-    $sudo minikube delete
-    printf "Error occured\n"
-    exit
-fi
+eval $($sudo minikube docker-env)
+printf "Minikube started\n"
 
 # Find IP using kubectl get node
 CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
@@ -33,17 +26,17 @@ kubectl apply -f srcs/metallb/metallb.yaml
 # a same repository containing the dockerfile and yaml deployment
 build_apply ()
 {
-    docker build -t services/$1 srcs/$1
-    sleep 1
-    kubectl apply -f srcs/$1/$1.yaml
-    sleep 1
+	docker build -t services/$1 srcs/$1
+	sleep 1
+	kubectl apply -f srcs/$1/$1.yaml
+	sleep 1
 }
 
 services="nginx mysql wordpress phpmyadmin ftps influxdb telegraf grafana"
 
 for service in $services
 do
-    build_apply $service
+	build_apply $service
 done
 
 minikube dashboard

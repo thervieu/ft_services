@@ -13,6 +13,7 @@ CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].addre
 # Change IP to match your machine (normally it is 172.17.0.3)
 sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/metallb/metallb.yaml
 sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/nginx/nginx.conf
+sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/nginx/index.html
 sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/wordpress/create.sh
 sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/ftps/vsftpd.conf
 sed -i 's/172.17.0.3/'$CLUSTER_IP'/g' srcs/telegraf/telegraf.conf
